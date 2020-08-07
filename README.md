@@ -1,4 +1,4 @@
-# IceMan Chat Site
+# IceMan Message Board
 
 ## Components:
 ### Maverick: Client
