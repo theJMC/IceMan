@@ -8,7 +8,7 @@ const hbs = require("express-handlebars");
 // Config
 
 
-const port = 1337;
+const port = 80;
 
 // Setup Handlebars View Engine
 app.set("view engine", "hbs");

@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+    IceMan:
+        image: "node:14.7.0-buster"
+        working_dir: /home/node/app
+        environment:
+            - NODE_ENV=production
+        volumes:
+            - .:/home/node/app
+        ports:
+            - 80:80
+        command: "npm start"
