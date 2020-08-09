@@ -20,7 +20,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/b9ca504357.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -64,7 +63,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li-->
           <li class="nav-item">
-            <a href="#" class="nav-link {{#if active.chat}} active {{/if}}">
+            <a id="reset" href="{{#if active.resetRedirect}} /?r=true {{else}} / {{/if}}" class="nav-link">
+              <i class="fas fa-house-user"></i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{#if active.chat}} active {{/if}}">
               <i class="fas fa-desktop"></i>
               <p>Chat</p>
             </a>
@@ -75,6 +80,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.sidebar -->
   </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

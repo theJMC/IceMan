@@ -1,39 +1,31 @@
-<div class="container">
-    <style>
-        #messages { list-style-type: none; margin: 0; padding: 0; }
-        #messages li { padding: 5px 10px; }
-        #messages li:nth-child(odd) { background: #eee; }
-    </style>
-    <ul id="messages"></ul>
-    <br>
-    <form action="">
-        <div class="row">
-            <div class="col-sm-10">
-                <input id="m" autocomplete="off" class="form-control" placeholder="Your wonderful message">
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Welcome to James' Chat App</h1>
+        <hr class="my-4">
+        <p class="lead">Please enter a nickname below to be entered into the chat room</p>
+    </div>
+    <div class="container">
+        <form action="">
+            <div class="row">
+                <div class="col-md-10">
+                    <input id="usr" autocomplete="off" class="form-control" placeholder="Username" autofocus>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary form-control">TO THE CHAT</button>
+                </div>
             </div>
-            <div class="col-sm-2">
-                <button class="btn btn-primary form-control">Send</button>
-            </div>
-        </div>
-        
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script>
-        $(function () {
-            var nick = prompt("What is your username?");
-            var socket = io();
-            socket.emit("nickname", nick);
-            $('form').submit(function(e) {
-                e.preventDefault(); // prevents page reloading
-                socket.emit('chat message', {"msg": $('#m').val(), "usr": nick});
-                $('#m').val('');
-                return false;
-            });
-            socket.on('chat message', function(msg){
-                $('#messages').append($('<li>').text(msg));
-                console.log("Message Recieved")
-            });
-        });
-    </script>
+        </form>
+    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var user = $("#usr").val();
+            Cookies.set("usr", user, { expires: 7});
+            console.log("Cookie set as " + user);
+            window.location.replace("chat")
+        })
+    })
+</script>

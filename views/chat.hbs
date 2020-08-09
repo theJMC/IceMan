@@ -1,0 +1,42 @@
+<div class="container">
+    <style>
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+    </style>
+    <ul id="messages"></ul>
+    <br>
+    <form action="">
+        <div class="row">
+            <div class="col-sm-10">
+                <input id="m" autocomplete="off" class="form-control" placeholder="Your wonderful message" autofocus>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-primary form-control">Send</button>
+            </div>
+        </div>
+        
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            var nick = Cookies.get("usr");
+            var socket = io();
+            socket.emit("nickname", nick);
+            $('form').submit(function(e) {
+                e.preventDefault(); // prevents page reloading
+                socket.emit('chat message', {"msg": $('#m').val(), "usr": nick});
+                $('#m').val('');
+                return false;
+            });
+            socket.on('chat message', function(msg){
+                console.log(msg)
+                $('#messages').append(
+                    $('<li>').append(
+                        $('<strong>').text(msg.usr)).append(": " + msg.msg.replace(/</g, "&lt;")));
+                console.log("Message Recieved")
+            });
+        });
+    </script>
+</div>
