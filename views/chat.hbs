@@ -4,6 +4,7 @@
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { background: #eee; }
     </style>
+    <div class="alert alert-primary" id="usrs"></div>
     <ul id="messages"></ul>
     <br>
     <form action="">
@@ -21,6 +22,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
         $(function () {
+            var users = [];
+            var usrString = "";
             var nick = Cookies.get("usr");
             var socket = io();
             socket.emit("nickname", nick);
@@ -37,6 +40,18 @@
                         $('<strong>').text(msg.usr)).append(": " + msg.msg.replace(/</g, "&lt;")));
                 console.log("Message Recieved")
             });
+            socket.on("addusr", user => {
+                users.push(user["usr"])
+                for (i in users){
+                    if (users.indexOf(i) != 0){
+                        usrString += `${i}`;
+                    }
+                    if (i != nick){
+                        usrString += `, ${i}`;
+                    }
+                }
+                $('#usrs').innerText = usrString;
+            })
         });
     </script>
 </div>
